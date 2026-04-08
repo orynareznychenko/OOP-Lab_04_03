@@ -1,0 +1,8 @@
+<Solution>
+  <Configurations>
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Project Path="UnitTest1/UnitTest1.vcxproj" />
+  <Project Path="ООП РІ-13 Резниченко ЛР-4.3/ООП РІ-13 Резниченко ЛР-4.3.vcxproj" />
+</Solution>
