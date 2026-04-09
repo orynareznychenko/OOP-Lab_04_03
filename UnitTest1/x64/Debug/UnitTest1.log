@@ -1,8 +1,4 @@
-﻿  pch.cpp
-  Array.cpp
-  Octal.cpp
-  String.cpp
+﻿  Octal.cpp
   UnitTest1.cpp
   Generating Code...
-     Creating library D:\2 семестр\ООП\ЛР 4\ООП РІ-13 Резниченко ЛР-4.3\x64\Debug\UnitTest1.lib and object D:\2 семестр\ООП\ЛР 4\ООП РІ-13 Резниченко ЛР-4.3\x64\Debug\UnitTest1.exp
   UnitTest1.vcxproj -> D:\2 семестр\ООП\ЛР 4\ООП РІ-13 Резниченко ЛР-4.3\x64\Debug\UnitTest1.dll

@@ -1,5 +1,6 @@
 #include <iostream>
 #include <typeinfo>
+#include <string>
 #include "Array.h"
 #include "Octal.h"
 #include "String.h"
@@ -7,60 +8,57 @@
 using namespace std;
 
 int main() {
-    cout << "--- Testing Octal class ---\n";
-    Octal o1("754");
-    Octal o2("26");
+    cout << "--- OCTAL CLASS TESTING ---\n";
+    char b1[101], b2[101];
+    cout << "Enter first octal number: "; cin >> b1;
+    cout << "Enter second octal number: "; cin >> b2;
 
-    cout << "Octal 1: "; o1.print(); cout << "\n";
-    cout << "Octal 2: "; o2.print(); cout << "\n";
+    Octal o1(b1);
+    Octal o2(b2);
 
     Array* ptr1 = &o1;
     Array* ptr2 = &o2;
     Array* ptr_res = ptr1->add(ptr2);
 
-    cout << "[Pointer] Addition result: ";
-    dynamic_cast<Octal*>(ptr_res)->print(); cout << "\n";
-    cout << "Actual object type of ptr_res: " << typeid(*ptr_res).name() << "\n\n";
-
+    cout << "Octal 1: "; o1.print(); cout << "\n";
+    cout << "Octal 2: "; o2.print(); cout << "\n";
+    cout << "Addition result: "; dynamic_cast<Octal*>(ptr_res)->print(); cout << "\n";
+    cout << "Equality (o1 == o2): " << (o1 == o2 ? "True" : "False") << "\n";
+    cout << "Comparison (o1 > o2): " << (o1 > o2 ? "True" : "False") << "\n";
+    cout << "Result object type: " << typeid(*ptr_res).name() << "\n\n";
     delete ptr_res;
 
-    cout << "--- Testing String class ---\n";
-    String s1("Hello, ");
-    String s2("World!");
+    cout << "--- STRING CLASS TESTING ---\n";
+    string sb1, sb2;
+    cout << "Enter first string: "; cin.ignore(); getline(cin, sb1);
+    cout << "Enter second string: "; getline(cin, sb2);
 
-    cout << "String 1: "; s1.print(); cout << " (Length: " << s1.length() << ")\n";
-    cout << "String 2: "; s2.print(); cout << "\n";
+    String s1(sb1.c_str());
+    String s2(sb2.c_str());
 
     Array& ref1 = s1;
     Array& ref2 = s2;
     Array* ref_res = ref1.add(&ref2);
 
-    cout << "[Reference] Concatenation result: ";
-    dynamic_cast<String*>(ref_res)->print(); cout << "\n";
-    cout << "Actual object type of ref_res: " << typeid(*ref_res).name() << "\n\n";
+    cout << "Concatenation result: "; dynamic_cast<String*>(ref_res)->print(); cout << "\n";
+    cout << "Result object type: " << typeid(*ref_res).name() << "\n\n";
 
-    String s3("Learning C++");
-    String sub("++");
-    int pos = s3.find(sub);
-    cout << "Base string: "; s3.print(); cout << "\nFound '++' at position: " << pos << "\n";
+    cout << "--- SUBSTRING OPERATIONS (String 1) ---\n";
+    string sub_in;
+    cout << "Enter substring to find in String 1: "; getline(cin, sub_in);
+    String sub_obj(sub_in.c_str());
+    int pos = s1.find(sub_obj);
+    cout << "Found at position: " << pos << "\n";
 
-    s3.remove(1, 9);
-    cout << "After removal: "; s3.print(); cout << "\n";
-
-    String sub2("Mastering ");
-    s3.insert(1, sub2);
-    cout << "After insertion: "; s3.print(); cout << "\n\n";
-
-    cout << "--- Testing RangeCheck ---\n";
+    cout << "--- RANGE CHECK TESTING ---\n";
     try {
-        unsigned char c = s1[300];
-        cout << c;
+        cout << "Accessing index 500...\n";
+        s1[500] = 'X';
     }
     catch (const out_of_range& e) {
-        cout << "Exception caught: " << e.what() << "\n";
+        cout << "Exception: " << e.what() << "\n";
     }
 
     delete ref_res;
-
     return 0;
 }

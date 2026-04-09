@@ -6,7 +6,6 @@ protected:
     static const int MAX_SIZE = 256;
     unsigned char data[MAX_SIZE];
     int count;
-
     bool rangeCheck(int index) const;
 
 public:
