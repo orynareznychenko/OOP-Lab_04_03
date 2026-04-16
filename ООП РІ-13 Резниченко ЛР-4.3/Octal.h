@@ -10,6 +10,9 @@ public:
 
     virtual Array* add(const Array* other) const override;
 
+    Octal operator+(const Octal& other) const;
+    Octal operator-(const Octal& other) const; 
+
     bool operator==(const Octal& other) const;
     bool operator!=(const Octal& other) const;
     bool operator<(const Octal& other) const;

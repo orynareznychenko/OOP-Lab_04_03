@@ -1,5 +1,6 @@
 #include "Octal.h"
 #include <iostream>
+#include <stdexcept>
 
 void Octal::trim() {
     while (count > 1 && data[count - 1] == 0) {
@@ -14,9 +15,15 @@ Octal::Octal(const char* str, int max_n) : Array(max_n, 0) {
     while (str[len] != '\0') len++;
     int actual_len = (len > 100) ? 100 : len;
     count = actual_len;
+
     for (int i = 0; i < count; ++i) {
-        data[i] = str[len - 1 - i] - '0';
+        char c = str[len - 1 - i];
+        if (c < '0' || c > '7') {
+            throw std::invalid_argument("Error: Invalid octal digit entered!");
+        }
+        data[i] = c - '0';
     }
+    trim();
 }
 
 Array* Octal::add(const Array* other) const {
@@ -41,6 +48,40 @@ Array* Octal::add(const Array* other) const {
         res->count = max_c + 1;
     }
     res->trim();
+    return res;
+}
+
+Octal Octal::operator+(const Octal& other) const {
+    Array* temp = this->add(&other);
+    Octal* octal_temp = dynamic_cast<Octal*>(temp);
+    Octal result = *octal_temp;
+    delete temp;
+    return result;
+}
+
+Octal Octal::operator-(const Octal& other) const {
+    if (*this < other) {
+        return Octal(1, 0); 
+    }
+    Octal res(100);
+    res.count = count;
+    int borrow = 0;
+
+    for (int i = 0; i < count; ++i) {
+        int val1 = data[i];
+        int val2 = (i < other.count) ? other.data[i] : 0;
+        int diff = val1 - val2 - borrow;
+
+        if (diff < 0) {
+            diff += 8; 
+            borrow = 1;
+        }
+        else {
+            borrow = 0;
+        }
+        res.data[i] = diff;
+    }
+    res.trim();
     return res;
 }
 

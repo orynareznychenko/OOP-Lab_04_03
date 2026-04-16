@@ -37,6 +37,14 @@ Array* String::add(const Array* other) const {
     return res;
 }
 
+String String::operator+(const String& other) const {
+    Array* temp = this->add(&other);
+    String* str_temp = dynamic_cast<String*>(temp);
+    String result = *str_temp;
+    delete temp;
+    return result;
+}
+
 int String::find(const String& sub) const {
     int len = data[0];
     int sublen = sub.data[0];
